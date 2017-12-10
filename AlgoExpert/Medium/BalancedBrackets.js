@@ -10,7 +10,27 @@ Sample output: True (it is balanced)
 */
 
 function balancedBrackets(string) {
-  // Write your code here.
+
+  const stack = [];
+	const openBracketSet = new Set();
+	openBracketSet.add('(');
+	openBracketSet.add('[');
+	openBracketSet.add('{');
+
+	const bracketMatch = {')': '(', ']': '[', '}': '{'};
+
+	for (let i = 0; i < string.length; i++) {
+		if (openBracketSet.has(string[i])) {
+				stack.push(string[i]);
+		}
+		else if (bracketMatch[string[i]]) {
+			if (bracketMatch[string[i]] !== stack.pop()) {
+				return false;
+			}
+		}
+	}
+	return stack.length === 0;
+
 }
 
 // Do not edit the line below.
