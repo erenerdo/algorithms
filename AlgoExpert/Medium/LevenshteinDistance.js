@@ -8,7 +8,6 @@ Sample input: "abc", "yabd"
 Sample output: 2 (insert "y"; substitute "c" for "d")
 
 */
-
 function levenshteinDistance(str1, str2) {
   let i = 0;
   let j = 0;
@@ -19,18 +18,18 @@ function levenshteinDistance(str1, str2) {
       i++;
       j++;
     }
-    else if (str[j + 1] === str[i]) {
+    else if (str2[j + 1] === str1[i]) {
       j++;
       count++;
     }
-    else if (str[i + 1] === str[j]) {
+    else if (str1[i + 1] === str2[j]) {
       i++;
       count++;
     }
     else {
       i++;
       j++;
-      count++
+      count++;
     }
   }
   if (i < str1.length) {
@@ -42,7 +41,6 @@ function levenshteinDistance(str1, str2) {
 
   return count;
 }
-
 
 // Do not edit the line below.
 exports.levenshteinDistance = levenshteinDistance;
