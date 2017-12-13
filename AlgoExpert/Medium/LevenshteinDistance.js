@@ -10,40 +10,46 @@ Sample output: 2 (insert "y"; substitute "c" for "d")
 */
 
 function levenshteinDistance(str1, str2) {
-	let levArr = new Array(str2.length + 1).fill(0);
-	levArr = levArr.map(ele => new Array(str1.length + 1).fill(0));
-
-
-	for (let i = 0; i <= str2.length; i++) {
-		levArr[i][0] = i;
+	// Create first array (top Array)
+	let topArr = new Array(str2.length + 1).fill(0);
+	for (let i = 0; i < topArr.length; i++) {
+		topArr[i] = i;
 	}
+	// Create second array to be used (lower array)
+	let lowArr = new Array(str2.length + 1).fill(0);
 
-	for (let j = 0; j <= str1.length; j++) {
-		levArr[0][j] = j;
-	}
+	// Create temp pointer to be used when swapping arrays
+	let tempArr;
 
 	for (let row = 1; row <= str1.length; row++) {
+		lowArr[0] = row;
 
 		for (let col = 1; col <= str2.length; col++) {
 
+			// Check if characters are the same
 			if (str2[col - 1] === str1[row - 1]) {
-				levArr[col][row] = levArr[col - 1][row - 1];
+				// Get the value from the top array
+				lowArr[col] = topArr[col - 1];
 			}
 			else {
-				levArr[col][row] = 1 + Math.min(
-					levArr[col - 1][row],
-					levArr[col - 1][row - 1],
-					levArr[col][row - 1]
-				);
+				// Not equal, assign it the min
+				lowArr[col] = 1 + Math.min(
+					lowArr[col - 1],
+					topArr[col],
+					topArr[col - 1]);
 			}
 		}
+
+		// Swap arrays since we are essentiall sliding down the row and
+		// the previous top array is now useless
+		tempArr = topArr;
+		topArr = lowArr;
+		lowArr = tempArr;
 	}
-	return levArr[str2.length][str1.length];
+
+	// Return the right most element which represents the solution
+	return topArr[topArr.length - 1];
 }
-
-// Do not edit the line below.
-exports.levenshteinDistance = levenshteinDistance;
-
 
 // Do not edit the line below.
 exports.levenshteinDistance = levenshteinDistance;
