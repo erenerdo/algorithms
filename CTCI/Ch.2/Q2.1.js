@@ -21,14 +21,14 @@ function removeDupsLL(head) {
 }
 
 
-printLL(removeDupsLL(arrToLL([1, 1, 1, 2, 3, 3, 4, 4, 5, 6, 7, 7, 7])));
-printLL(arrToLL([1, 2, 3, 4, 5, 6, 7]));
+linkListToStr(removeDupsLL(arrToLL([1, 1, 1, 2, 3, 3, 4, 4, 5, 6, 7, 7, 7])));
+linkListToStr(arrToLL([1, 2, 3, 4, 5, 6, 7]));
 
-printLL(removeDupsLL(arrToLL([1, 1, 1])));
-printLL(arrToLL([1]));
+linkListToStr(removeDupsLL(arrToLL([1, 1, 1])));
+linkListToStr(arrToLL([1]));
 
-printLL(removeDupsLL(arrToLL([1, 1, 3, 5, 7, 7, 7, 2, 1, 1, 4, 5, 5, 7])));
-printLL(arrToLL([1, 3, 5, 7, 2, 4]));
+linkListToStr(removeDupsLL(arrToLL([1, 1, 3, 5, 7, 7, 7, 2, 1, 1, 4, 5, 5, 7])));
+linkListToStr(arrToLL([1, 3, 5, 7, 2, 4]));
 
 function didPass(answer, solution) {
   if (answer === solution) console.log('Passsed');
@@ -55,7 +55,7 @@ function arrToLL(arr) {
   return head;
 }
 
-function printLL (head) {
+function linkListToStr (head) {
   let ptr = head;
   let strToPrint = '';
 
