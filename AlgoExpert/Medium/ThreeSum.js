@@ -9,41 +9,27 @@ Sample output: [[-8, 2, 6], [-8, 3, 5], [-6, 1, 5]]
 
 
 */
-
 function threeNumberSum(array, targetSum) {
-	array.sort((a,b) => a-b);
-	const combs = [];
-	const hMap = new Map();
+	array.sort((a, b) => a - b);
+	const combinations = [];
 
-	// Add all values to hMap
-	for (let k = 0; k < array.length; k++) {
-		hMap.set(array[k],k);
-	}
-
-	// Iterate through array again, checking if a three sum exists
 	for (let i = 0; i < array.length; i++) {
-		for (let j = i + 1; j < array.length; j++) {
-			const goal = targetSum - array[i] - array[j];
+		let lo = i + 1;
+		let hi = array.length - 1;
 
-			if (hMap.has(goal)) {
-				if (hMap.get(goal) !== i && hMap.get(goal) !== j) {
-					const sol = [array[i], array[j], goal];
-					let shouldAdd = true;
-					combs.forEach(comb => {
-					  if (comb.includes(array[i]) &&
-								comb.includes(array[j]) &&
-								comb.includes(goal)) {
-					    shouldAdd = false;
-					  }
-					});
-					if (shouldAdd) combs.push(sol);
-					continue;
-				}
+		while (lo < hi) {
+			const val = array[i] + array[lo] + array[hi];
+
+			if (val < targetSum) lo++;
+			else if (val > targetSum) hi--;
+			else {
+				combinations.push([array[i], array[lo], array[hi]])
+				lo++;
+				hi--;
 			}
 		}
 	}
-
-	return combs;
+	return combinations;
 }
 
 // Do not edit the line below.
