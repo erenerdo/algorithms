@@ -32,6 +32,7 @@ function reverseLLK(head, k) {
     let middle = head.next;
     let trail = head;
 
+    // Additional edge case
     // Check if second value needs to be reversed and theres more than or equal to 3 values
     if (middle.value % k === 0) {
 
@@ -56,7 +57,9 @@ function reverseLLK(head, k) {
         // Shift pointer to correct positions for next iteration
         trail = lead;
         lead = middle.next;
-      } else {
+      }
+      else {
+        // Just move pointers down one
         trail = middle;
         middle = lead;
         lead = lead.next;
@@ -68,23 +71,23 @@ function reverseLLK(head, k) {
 
 
   // Tests
-  linkListToStr(reverseLLK(arrToLL([2]), 2));
-  linkListToStr(arrToLL([2]));
+  printLL(reverseLLK(arrToLL([2]), 2));
+  printLL(arrToLL([2]));
 
-  console.log('')
+  console.log('');
 
-  linkListToStr(reverseLLK(arrToLL([1, 2]), 2));
-  linkListToStr(arrToLL([2, 1]));
+  printLL(reverseLLK(arrToLL([1, 2]), 2));
+  printLL(arrToLL([2, 1]));
 
-  console.log('')
+  console.log('');
 
-  linkListToStr(reverseLLK(arrToLL([1, 2, 3, 4, 5]), 2));
-  linkListToStr(arrToLL([2, 1, 4, 3, 5]));
+  printLL(reverseLLK(arrToLL([1, 2, 3, 4, 5]), 2));
+  printLL(arrToLL([2, 1, 4, 3, 5]));
 
-  console.log('')
+  console.log('');
 
-  linkListToStr(reverseLLK(arrToLL([1, 2, 3, 4, 5, 6, 7, 8]), 2));
-  linkListToStr(arrToLL([2, 1, 4, 3, 6, 5, 8, 7]));
+  printLL(reverseLLK(arrToLL([1, 2, 3, 4, 5, 6, 7, 8]), 2));
+  printLL(arrToLL([2, 1, 4, 3, 6, 5, 8, 7]));
 
 
   // Linked List set up
@@ -107,7 +110,7 @@ function reverseLLK(head, k) {
     return head;
   }
 
-  function linkListToStr (head) {
+  function printLL (head) {
     let ptr = head;
     let strToPrint = '';
 
