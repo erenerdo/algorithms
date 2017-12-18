@@ -15,24 +15,31 @@ zeroMatrix(arr);
 console.log(arr);
 
 function zeroMatrix (array) {
-  let zeroPairs = [];
+  let rowSet = new Set();
+  let colSet = new Set();
 
   for (let r = 0; r < array.length; r++) {
     for (let c = 0; c < array[r].length; c++) {
       if (array[r][c] === 0) {
-        zeroPairs.push([r,c]);
+        rowSet.add(r);
+        colSet.add(c);
       }
     }
   }
-  zeroPairs.forEach(pair => {
+
+  rowSet.forEach(row => {
     // set every row in pairs equal to zero
     for (let col = 0; col < array[0].length; col++) {
-      array[pair[0]][col] = 0;
+      array[row][col] = 0;
     }
+  });
 
+  colSet.forEach(col => {
     // set every column in pairs equal to zero
     for (let row = 0; row < array.length; row++) {
-      array[row][pair[1]] = 0;
+      array[row][col] = 0;
     }
+
   })
+
 }
