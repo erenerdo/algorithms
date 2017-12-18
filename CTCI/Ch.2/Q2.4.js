@@ -10,27 +10,52 @@ Output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
 
 */
 
-// O(N) time, O(N) memory
+// O(N) time, O(1) memory
 function partitionLL (head, partVal) {
   let ptr = head;
-  let left = [];
-  let right = [];
 
-  while (ptr !== null) {
-    if (ptr.value < partVal) left.push(ptr.value)
-    else right.push(ptr.value)
+  // Find left head
+  let leftHead = null;
+
+  while (ptr.value >= partVal) {
     ptr = ptr.next;
   }
+  leftHead = ptr;
 
-  let leftHead = arrToLL(left);
-  let rightHead = arrToLL(right);
 
-  let leftTail = leftHead;
-  while (leftTail.next !== null) {
-    leftTail = leftTail.next;
+  // Reset ptr
+  ptr = head;
+
+  // Find right head;
+  let rightHead = null;
+
+  while (ptr.value < partVal) {
+    ptr = ptr.next;
   }
-  leftTail.next = rightHead;
+  rightHead = ptr;
 
+  // reset ptr
+  ptr = head;
+  let leftPtr = leftHead;
+  let rightPtr = rightHead;
+
+  while (ptr !== null) {
+    if (ptr === rightHead || ptr === leftHead) {
+      ptr = ptr.next;
+    }
+    else if (ptr.value < partVal) {
+      leftPtr.next = ptr;
+      leftPtr = ptr;
+      ptr = ptr.next;
+    }
+    else {
+      rightPtr.next = ptr;
+      rightPtr = ptr;
+      ptr = ptr.next;
+    }
+  }
+  leftPtr.next = rightHead;
+  rightPtr.next = null;
   return leftHead;
 }
 
