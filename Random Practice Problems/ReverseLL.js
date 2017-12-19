@@ -61,6 +61,9 @@ printLL(reverseLL(link2));
 printLL(reverseLL(link1));
 
 
+
+
+
 // Linked List set up, don't modify
 function LLNode (value) {
 this.value = value;
@@ -85,11 +88,11 @@ function printLL (head) {
 let ptr = head;
 let strToPrint = '';
 
-while (ptr.next !== null) {
+while (ptr !== null) {
 strToPrint += `${ptr.value} -> `;
 ptr = ptr.next;
 }
 
-strToPrint += ptr.value;
+strToPrint += 'null';
 console.log(strToPrint);
 }
