@@ -4,43 +4,27 @@ Write a function to reverse a linked list in O(N) time and O(1) space
 
 */
 
-function reverseLL (head) {
-  // Edge cases
+function reverseLL(headOfList) {
+  var current  = headOfList;
+  var previous = null;
+  var nextNode = null;
 
-  // Bad input
-  if (typeof head !== 'object' || head === null) return null;
+  // until we have 'fallen off' the end of the list
+  while (current) {
 
-  // One element
-  if (head.next === null) return head;
+      // copy a pointer to the next element
+      // before we overwrite current.next
+      nextNode = current.next;
 
-  // Two elements
-  if (head.next.next === null) {
-      let temp = head.next;
-      temp.next = head;
-      head.next = null;
-      return temp;
+      // reverse the 'next' pointer
+      current.next = previous;
+
+      // step forward in the list
+      previous = current;
+      current = nextNode;
   }
 
-  // Normal cases
-  let trail = head;
-  let middle = head.next;
-  let lead = head.next.next;
-
-  // Initialize
-  trail.next = null;
-
-  while (lead !== null) {
-      // Reassign pointer
-      middle.next = trail;
-
-      // Adjust pointers
-      trail = middle;
-      middle = lead;
-      lead = lead.next;
-  }
-
-  middle.next = trail;
-  return middle;
+  return previous;
 }
 
 let link1 = arrToLL([1, 2, 3, 4, 5, 6, 7, 8, 9])
