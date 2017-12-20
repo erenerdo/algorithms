@@ -16,11 +16,16 @@ Sample output: True
 
 */
 
-function validateBst(tree) {
-  // Write your code here.
+function validateBst(tree, minVal = -Infinity, maxVal = Infinity) {
 
+	// Base Case
+	if (tree === null) return true;
+
+	// Check if it's valid
+	if (tree.value < minVal || tree.value >= maxVal) return false;
+
+	return validateBst(tree.left, minVal, tree.value) && validateBst(tree.right, tree.value, maxVal);
 }
 
 // Do not edit the line below.
 exports.validateBst = validateBst;
-
