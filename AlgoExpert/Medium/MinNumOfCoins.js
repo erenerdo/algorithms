@@ -10,17 +10,21 @@ Sample output: 3 (2x1 + 1x5)
 */
 
 function minNumberOfCoinsForChange(n, denoms) {
-  let coinCount = 0;
-	let currentCoinIdx = denoms.length - 1;
 
-	while (currentCoinIdx >= 0 && n > 0){
-		if (denoms[currentCoinIdx] <= n) {
-			n -= denoms[currentCoinIdx];
-			coinCount++;
-		} else {
-			currentCoinIdx--;
-		}
-	}
-	if (n === 0) return coinCount;
-	return -1;
+  const minCoins = new Array(n + 1).fill(Infinity);
+
+  // Initialize minCoins array
+  minCoins[0] = 0;
+
+  for (let i = 0; i < denoms.length; i++) {
+    const coin = denoms[i];
+
+    for (let val = 0; val < minCoins.length; val++) {
+      if (val >= coin) {
+        minCoins[val] = Math.min(minCoins[val - coin] + 1, minCoins[val]);
+      }
+    }
+  }
+  if (minCoins[n] !== Infinity) return minCoins[n];
+  return -1;
 }
