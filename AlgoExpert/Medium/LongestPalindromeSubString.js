@@ -13,45 +13,42 @@ function longestPalindromicSubstring(string) {
 
 	// Treat each i as the center of a possible palindrome
   for (let i = 0; i < string.length; i++) {
-    let left = i;
-    let right = i + 1;
-
     // Check for even palindromes
-    while (left >= 0 && right < string.length) {
-
-      if (string[left] !== string[right]) break;
-
-      let evenSS = string.substring(left, right + 1);
-
-			// Check if current substring palindrome is greater than the longest one
-      if (evenSS.length > longestPalSS.length) {
-          longestPalSS = evenSS;
-      }
-      left--;
-      right++;
-    }
-
+    let evenPal = getPalindromeSS(string, i, i+1);
     // Check for odd palindromes, reset values
-    left = i;
-    right = i;
+    let oddPal = getPalindromeSS(string, i, i);
 
+    let currentPal = evenPal.length > oddPal.length ? evenPal : oddPal;
 
-    while (left >= 0 && right < string.length) {
-			// Check if values are equal
-      if (string[left] !== string[right]) break;
-
-      let oddSS = string.substring(left, right + 1);
-
-      // Check if current substring palindrome is greater than the longest one
-      if (oddSS.length > longestPalSS.length) {
-          longestPalSS = oddSS;
-      }
-      left--;
-      right++;
+    if (currentPal.length > longestPalSS.length) {
+      longestPalSS = currentPal;
     }
   }
   return longestPalSS;
 }
+
+function getPalindromeSS(string, left, right) {
+    let currentLongestPalSS = '';
+    while (left >= 0 && right < string.length) {
+
+      if (string[left] !== string[right]) break;
+
+      let palSS = string.substring(left, right + 1);
+
+    	// Check if current substring palindrome is greater than the longest one
+      if (palSS.length > currentLongestPalSS.length) {
+        currentLongestPalSS = palSS;
+      }
+      left--;
+      right++;
+    }
+    return currentLongestPalSS;
+}
+
+
+// Do not edit the line below.
+exports.longestPalindromicSubstring = longestPalindromicSubstring;
+
 
 
 // Do not edit the line below.
