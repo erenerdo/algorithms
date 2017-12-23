@@ -14,22 +14,23 @@ function maxSubsetSumNoAdjacent(array) {
 
 	if (array.length === 1) return array[0];
 
-	if (array.length <= 2) {
+	if (array.length === 2) {
 		return Math.max(array[0], array[1]);
 	}
 
-	const sums = new Array(array.length).fill(0);
+	let third = array[0];
+	let second = array[1];
+	let first = array[2] + array[0];
 
-	sums[0] = array[0];
-	sums[1] = array[1];
-	sums[2] = array[2] + array[0];
+	for (let i = 3; i < array.length; i++) {
+		const newMax = Math.max(second, third) + array[i];
 
-	for (let i = 3; i < sums.length; i++) {
-		const prevMax = Math.max(sums[i - 2], sums[i - 3]);
-		sums[i] = prevMax + array[i];
+		third = second;
+		second = first;
+		first = newMax;
 	}
 
-	return Math.max(sums[sums.length - 1], sums[sums.length - 2]);
+	return Math.max(first, second);
 }
 
 // Do not edit the line below.
