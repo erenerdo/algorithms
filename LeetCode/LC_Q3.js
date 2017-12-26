@@ -13,30 +13,22 @@ Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer 
  * @param {string} str
  * @return {number}
  */
+
 var lengthOfLongestSubstring = function(str) {
   const hSet = new Set();
   let lead = 0;
   let trail = 0;
   let maxLength = 0;
-  let maxIdxs = [0, 0];
 
   while (lead < str.length) {
       if (!hSet.has(str[lead])) {
           hSet.add(str[lead]);
           lead++;
-          if (lead - trail > maxLength) {
-              maxLength = lead - trail;
-              maxIdxs[0] = trail;
-              maxIdxs[1] = lead;
-          }
+          maxLength = Math.max(maxLength, lead - trail)
       }
       else {
-          while (str[trail] !== str[lead]) {
-              hSet.delete(str[trail]);
-              trail++;
-          }
+          hSet.delete(str[trail]);
           trail++;
-          lead++;
       }
   }
   return maxLength;
