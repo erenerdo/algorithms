@@ -21,7 +21,7 @@ function sumList (llHead1, llHead2) {
 
   // Sum up list 1
   while (ptr1 !== null) {
-    sum1 += ptr1.value*tens;
+    sum1 += ptr1.value * tens;
     tens *= 10;
     ptr1 = ptr1.next;
   }
@@ -29,7 +29,7 @@ function sumList (llHead1, llHead2) {
 
   // Sum up list 1
   while (ptr2 !== null) {
-    sum2 += ptr2.value*tens;
+    sum2 += ptr2.value * tens;
     tens *= 10;
     ptr2 = ptr2.next;
   }
