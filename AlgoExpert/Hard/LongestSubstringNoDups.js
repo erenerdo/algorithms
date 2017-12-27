@@ -21,7 +21,7 @@ function longestSubstringWithoutDuplication(str) {
 		}
 		hMap.set(str[ptr], ptr);
 		ptr++;
-		if(ptr - startIdx > maxSS[1] - maxSS[0]) {
+		if (ptr - startIdx > maxSS[1] - maxSS[0]) {
 			maxSS[0] = startIdx;
 			maxSS[1] = ptr;
 		}
