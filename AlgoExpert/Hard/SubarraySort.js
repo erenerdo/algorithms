@@ -10,34 +10,43 @@ Sample output: [3, 9]
 */
 
 function subarraySort(arr) {
-  let i = 0;
-  while (arr[i] <= arr[i + 1] && i < arr.length) i++;
+	// Initialize left and right pointers
+	let l = 0;
+	let r = arr.length - 1;
 
-  if (i === arr.length - 1) return [-1, -1];
+	// Iterate until we find start of unsorted middle
+  while (arr[l] <= arr[l + 1]) l++;
+  while (arr[r] >= arr[r - 1]) r--;
 
-  let j = arr.length - 1;
-  while (arr[j] >= arr[j - 1]) j--;
+	// Edge case, array already sorted
+  if (l === arr.length - 1) return [-1, -1];
 
+	// Initiliaze min and max pointers
   let min = Infinity;
   let max = -Infinity;
 
-  for (let k = i; k <= j; k++) {
+	// Find min and max of middle portion
+  for (let k = l; k <= r; k++) {
       min = Math.min(min, arr[k]);
       max = Math.max(max, arr[k]);
   }
 
-  let shifts = true;
-
-  while (shifts) {
-      shifts = false;
-      if (max > arr[j]) {
-          j++;
-          shifts = true;
+  let shiftsNeed = true;
+  // Iterate and shift pointers until shiftings stop
+  while (shiftsNeed) {
+     	shiftsNeed = false;
+      if (max > arr[r]) {
+          r++;
+          shiftsNeed = true;
       }
-      if (min < arr[i]) {
-          i--;
-          shifts = true;
+      if (min < arr[l]) {
+          l--;
+          shiftsNeed = true;
       }
   }
-  return [i + 1, j - 1];
+  return [l + 1, r - 1];
 }
+
+// Do not edit the line below.
+exports.subarraySort = subarraySort;
+
