@@ -18,8 +18,18 @@ No "shorting"—you must buy before you sell. You may not buy and sell in the sa
 */
 
 var stockPricesYesterday1 = [10, 7, 5, 8, 11, 9]; // 6
+
+
 var stockPricesYesterday2 = [18, 14, 10, 7, 5, 1]; // -2
-var stockPricesYesterday3 = [1, 5, 6, 16, 2, 9, 15]; // 15
+
+var stockPricesYesterday3 = [5, 6, 16, 2, 9, 15]; // 13
+/*                                            i
+currentMin: 2
+MaxProfit: 13
+
+*/
+
+
 var stockPricesYesterday4 = [55, 52, 45, 40, 39, 31, 14]; // -1
 var stockPricesYesterday5 = [22, 17, 5, 12, 8, 19, 14, 24]; // 19
 var stockPricesYesterday6 = [4, 17, 5, 16, 20]; // 16
@@ -27,13 +37,8 @@ var stockPricesYesterday6 = [4, 17, 5, 16, 20]; // 16
 
 function getMaxProfit(stockPrices) {
 
-  // Check if enough stock prices
-  if (stockPrices.length < 2) {
-    throw new Error('Not enough valid stock prices');
-  }
-
   // Initialize Max Profit and Current Min
-  var maxProfit = stockPrices[1] - stockPrices[0];
+  var maxProfit = -Infinity;
   var currentMin = stockPrices[0];
 
   for (var i = 1; i < stockPrices.length; i++) {
