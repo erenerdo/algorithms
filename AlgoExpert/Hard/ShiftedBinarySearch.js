@@ -16,7 +16,7 @@ function shiftedBinarySearch(nums, target) {
 		// Check if mid is on target
 		if (nums[mid] === target) return mid;
 		// Left side is sorted
-		else if (nums[mid] > nums[lo]) {
+		else if (nums[mid] >= nums[lo]) {
 			// Target in left side
 			if (target >= nums[lo] && target < nums[mid]) {
 				hi = mid - 1;
