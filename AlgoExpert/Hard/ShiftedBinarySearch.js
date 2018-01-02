@@ -7,35 +7,35 @@ Sample input: [45, 61, 71, 72, 73, 0, 1, 21, 33, 45], 33
 Sample output: 8
 */
 
-function shiftedBinarySearch(arr, target) {
+function shiftedBinarySearch(nums, target) {
 	let lo = 0;
-	let hi = arr.length - 1;
-	let mid;
+	let hi = nums.length - 1;
 
 	while (lo <= hi) {
-		mid = lo + Math.floor((hi - lo)/2);
-		if (arr[mid] < arr[hi]) hi = mid;
-		else lo = mid + 1;
+		let mid = Math.floor((lo + hi) / 2);
+		// Check if mid is on target
+		if (nums[mid] === target) return mid;
+		// Left side is sorted
+		else if (nums[mid] > nums[lo]) {
+			// Target in left side
+			if (target >= nums[lo] && target < nums[mid]) {
+				hi = mid - 1;
+			}
+			// Target on right side
+			else lo = mid + 1;
+		}
+		// Right side is sorted
+		else {
+			// Target on right side
+			if (target > nums[mid] && target <= nums[hi]) {
+				lo = mid + 1;
+			}
+			else hi = mid - 1;
+		}
 	}
-
-	// Mid at lowest value
-	// Reset low and hi
-  lo = 0;
-  hi = arr.length - 1;
-
-	// Find partition of array to binary search
-	if (target >= arr[lo]) hi = mid - 1;
-	else lo = mid;
-
-	while (lo <= hi) {
-		let mid = lo + Math.floor((hi - lo)/2);
-		if (target > arr[mid]) lo = mid + 1;
-		else if (target < arr[mid]) hi = mid - 1;
-		else return mid;
-	}
-
 	return -1;
 }
+
 
 // Do not edit the line below.
 exports.shiftedBinarySearch = shiftedBinarySearch;
