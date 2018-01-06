@@ -1,10 +1,14 @@
+
+# Setting up Linked List Class to be used in Hash Map for
+# seperate chaining implementation
+
+
 # Linked List Node Class
 class LListNode:
   def __init__ (self, key, value, nextNode):
     self.key = key
     self.value = value
     self.nextNode = nextNode
-
 
 # Lined List Class
 class LList:
@@ -21,7 +25,7 @@ class LList:
       # If it is update value, and return
       if ptr.key == key:
         ptr.value = value;
-        return self
+        return "Updated Key"
       ptr = ptr.nextNode
 
     ## Key not found so lets add it to the list
@@ -31,14 +35,13 @@ class LList:
     # Edge Case
     if self.head == None:
       self.head = newNode
-      return self
+    else:
+      newNode.nextNode = self.head
+      self.head = newNode
 
-    newNode.nextNode = self.head
-    self.head = newNode
-    return self
+    return "New Key"
 
   def get (self, key):
-
     # Create pointer
     ptr = self.head
     while ptr != None:
@@ -49,6 +52,29 @@ class LList:
     # Node not found return None
     return None
 
+  def remove (self, key):
+    ptr = self.head
+
+    ## Edge case, need to remove the head
+    if (ptr.key == key):
+      self.head = ptr.nextNode;
+      return True;
+
+    while (ptr.nextNode != None):
+      if (ptr.nextNode.key == key):
+        ptr.nextNode = ptr.nextNode.nextNode
+        return True
+      ptr = ptr.nextNode
+    return False
+
+  def contains (self, key):
+    ptr = self.head
+
+    while (ptr != None):
+      if (ptr.key == key):
+        return True
+      ptr = ptr.nextNode
+    return False
 
   def printLL (self):
     ptr = self.head
@@ -61,6 +87,12 @@ class LList:
       return "None"
     else:
       return " -> ".join(llKeys) + " -> None"
+
+
+##################################################################
+##################################################################
+
+# Setting up HashMap class now
 
 # Hash Function
 def hashKey(key, size):
@@ -81,95 +113,64 @@ def hashKey(key, size):
   return None
 
 
-# HashMap class
+# HashMap Class
 class HashMap:
   def __init__ (self):
     self.buckets = []
-    # Initialze size of buckets to 10
-    self.size = 10
+    self.bucketSize = 10
+    self.count = 0;
 
     # Initialze all values in buckets to an empty LinkedList
-    for i in range(self.size):
+    for i in range(self.bucketSize):
       self.buckets.append(LList())
 
   def set (self, key, value):
-    hashIndex = hashKey(key, self.size)
+    hashIndex = hashKey(key, self.bucketSize)
+
+    # Throw error if valid key not inputted
     if hashIndex == None:
       raise ValueError('Invalid data type for key in HashMap')
-    self.buckets[hashIndex].set(key, value)
+
+    insert = self.buckets[hashIndex].set(key, value)
+
+    # Increment count only if a new key is added
+    if insert == "New Key":
+      self.count += 1
+
+    # Check if we need to rehash our hashtable with a bigger bucket size
+    if self.count == 2 * self.buckets:
+      self.rehash()
 
     # return self for chaining
     return self
 
   def get (self, key):
-    hashIndex = hashKey(key, self.size)
+    hashIndex = hashKey(key, self.bucketSize)
     return self.buckets[hashIndex].get(key)
+
+  def isEmpty (self):
+    return self.count == 0
+
+  def size (self):
+    return self.count
+
+  def clear (self):
+    self = self.__init__()
+
+  def containsKey(self, key):
+    hashIndex = hashKey(key, self.bucketSize)
+    return self.buckets[hashIndex].contains(key)
+
+  def remove(self, key):
+    hashIndex = hashKey(key, self.bucketSize)
+    didRemove = self.buckets[hashIndex].remove(key)
+
+    if didRemove:
+      self.count -= 1
+    return didRemove;
+
 
   # Used to see how the hashmap is looking under the hood
   def printHashMap (self):
     for i in range(len(self.buckets)):
       print(i, ":", self.buckets[i].printLL())
-
-## Driver
-
-hMap = HashMap()
-
-# Set values of alphabet in HashMap for testing
-hMap.set('a', 1).set('b', 2).set('c', 3).set('d', 4).set('e', 5).set('f', 6)
-hMap.set('g', 7).set('h', 8).set('i', 9).set('j', 10).set('k', 11).set('l', 12)
-hMap.set('m', 13).set('n', 14).set('o', 15).set('p', 16).set('q', 17).set('r', 18)
-hMap.set('s', 19).set('t', 20).set('u', 21).set('v', 22).set('w', 23).set('x', 24)
-hMap.set('y', 25).set('z', 26)
-
-# Print HashMap to see how it's looking
-hMap.printHashMap()
-
-# Line break for printing
-print("\nChecking values for l, e, b, r, o, n, and cavs:")
-
-# Check if the letters for lebron are returning correctly
-print(hMap.get('l')) # 12 retuned and printed
-print(hMap.get('e')) # 5 returned and printed
-print(hMap.get('b')) # 2 returned and printed
-print(hMap.get('r')) # 18 returned and printed
-print(hMap.get('o')) # 15 returned and printed
-print(hMap.get('n')) # 14 returned and printed
-
-# Check to see it returns None when it should
-print(hMap.get('cavs')) # None printed
-
-# Try to set faulty data, should throw ValueError, comment out to test
-# print(hMap.set({"a", 2}, "b"))
-
-## Add numbers to hMap to see if it still works
-
-hMap.set(1, 31)
-hMap.set(2, 32)
-hMap.set(3, 33)
-hMap.set(4.343, 34.343)
-
-# Line break for printing
-print("")
-
-# Print HashMap to see how it's looking
-hMap.printHashMap()
-
-# Line break for printing
-print("")
-
-# Check if numbers are returning correctly
-print(hMap.get(2)) # 32 returned and printed
-print(hMap.get(4.343)) # 34.343 returned and printed
-
-# Line break for printing
-print("")
-
-# Update values and see if they change
-hMap.set("a", 60)
-hMap.set("z", 100)
-print(hMap.get("a"))
-print(hMap.get("z"))
-
-
-
-
