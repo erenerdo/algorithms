@@ -85,10 +85,7 @@ var numIslands = function(binaryMatrix) {
        if (binaryMatrix[row][col] == '1') {
          let n = binaryMatrix.length;
          let m = binaryMatrix[0].length;
-
-         DFSMark(binaryMatrix, row, col, n, m)
-
-
+         DFSMark(binaryMatrix, row, col, n, m);
          islandCount++;
        }
      }
@@ -97,8 +94,8 @@ var numIslands = function(binaryMatrix) {
    return islandCount;
  }
 
- function DFSMark (matrix, r, c, n, m) {
-   if (r < 0 || r >= n || c < 0 || c >= m || !matrix[r].length || matrix[r][c] !== '1') return;
+ function DFSMark (matrix, i, j, n, m) {
+   if (i < 0 || j >= n || c < 0 || c >= m || !matrix[r].length || matrix[r][c] !== '1') return;
 
    // Visit and mark to -1
    matrix[r][c] = '-1';
