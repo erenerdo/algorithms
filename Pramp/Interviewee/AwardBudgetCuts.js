@@ -16,7 +16,29 @@ output: 47 # and given this cap the new grants array would be
            # new grants is indeed 190
 
 */
-
 function findGrantsCap(grantsArray, newBudget) {
-  // your code goes here
+
+  let budgetLeft = newBudget;
+  let grantsLeft = grantsArray.length;
+  let avgGrant;
+  const indexes = new Set();
+
+  let grantsChanged = true;
+
+  while (grantsChanged) {
+    grantsChanged = false;
+    avgGrant = budgetLeft / grantsLeft;
+
+    for (let i = 0; i < grantsArray.length; i++) {
+      if (grantsArray[i] < avgGrant && !indexes.has(i)) {
+        indexes.add(i);
+        grantsLeft--;
+        budgetLeft -= grantsArray[i];
+        grantsChanged = true;
+      }
+    }
+  }
+  return avgGrant;
 }
+
+console.log(findGrantsCap([2, 100, 50, 120, 1000], 190));
