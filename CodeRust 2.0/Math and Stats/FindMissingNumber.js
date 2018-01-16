@@ -1,12 +1,10 @@
 /*
-
 Find Missing Number
 Given an array of positive numbers from 1 to n, such that all numbers from 1 to n are present except one. Find the missing number.
-
 */
 
 function findMissingNumber (nums, n) {
-  let expectedTotal = (n * (n + 1)) / 2;
+  let expectedTotal = (n*(n+1))/2;
   let actualTotal = 0;
 
   for (let i = 0; i < nums.length; i++) {
