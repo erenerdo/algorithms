@@ -11,7 +11,7 @@ function permuteString (str, curr = '', perms = []) {
   }
 
   for (let i = 0; i < str.length; i++) {
-    let char = str.slice(i, i + 1);
+    let char = str[i];
     let newCurr = curr.slice();
     let strCopy = str.slice();
     strCopy = strCopy.slice(0, i) + strCopy.slice(i + 1);
