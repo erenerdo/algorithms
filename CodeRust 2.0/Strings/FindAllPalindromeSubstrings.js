@@ -24,7 +24,6 @@ function allPalindromeSubstrings (str) {
     let evenLenPals = palSubstr(str, i, i + 1);
     all = all.concat(oddLenPals).concat(evenLenPals);
   }
-
   return all;
 }
 
