@@ -32,7 +32,7 @@ function createVertexCopies (graph, hMap) {
       const neighbor = curVertex.neighbors[i];
       if (!visited.has(neighbor)) {
         queue.push(neighbor);
-        visited.has(neighbor);
+        visited.add(neighbor);
       }
     }
     const copyVertex = new UndirectedGraphNode(curVertex.label);
