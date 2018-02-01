@@ -23,22 +23,47 @@ Sample output (for searching in the suffix trie above): True
 // populateSuffixTrieFrom and contains methods.
 // Feel free to add new properties and methods
 // to the class.
+
+
 class SuffixTrie {
-  constructor(value) {
+  constructor(string) {
     this.root = {};
-    this.endSymbol = '*';
+    this.endSymbol = "*";
     this.populateSuffixTrieFrom(string);
   }
 
   populateSuffixTrieFrom(string) {
-    // Write your code here.
+    // For each contiguous substring
+		for (let i = 0; i < string.length; i++) {
+			const curSubstr = string.slice(i);
+			let curLevel = this.root
+			for (const char of curSubstr) {
+				// Go into that level
+				if (char in curLevel) {
+					curLevel = curLevel[char];
+				}
+				// Create that level
+				else {
+					curLevel[char] = {};
+					curLevel = curLevel[char];
+				}
+			}
+			curLevel[this.endSymbol] = true;
+		}
   }
 
   contains(string) {
-    // Write your code here.
+    let curLevel = this.root;
+		// For each char in the string
+		for (const char of string) {
+			if (char in curLevel) {
+				curLevel = curLevel[char];
+			}
+			else return false;
+		}
+		return !!curLevel[this.endSymbol];
   }
 }
 
 // Do not edit the line below.
 exports.SuffixTrie = SuffixTrie;
-
