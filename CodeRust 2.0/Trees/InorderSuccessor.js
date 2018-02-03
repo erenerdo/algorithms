@@ -8,6 +8,7 @@
  *     this.left = this.right = null;
  * }
  */
+
 var inorderSuccessor = function(root, p) {
   if (!root) return null;
   let minSuccessor = null;
