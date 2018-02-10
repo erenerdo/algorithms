@@ -31,4 +31,4 @@ function setZeroes (matrix) {
       matrix[r][col] = 0;
     }
   })
-};
+}
