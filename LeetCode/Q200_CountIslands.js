@@ -94,8 +94,8 @@ var numIslands = function(binaryMatrix) {
    return islandCount;
  }
 
- function DFSMark (matrix, i, j, n, m) {
-   if (i < 0 || j >= n || c < 0 || c >= m || !matrix[r].length || matrix[r][c] !== '1') return;
+ function DFSMark (matrix, r, c, n, m) {
+   if (r < 0 || r >= n || c < 0 || c >= m || !matrix[r].length || matrix[r][c] !== '1') return;
 
    // Visit and mark to -1
    matrix[r][c] = '-1';
